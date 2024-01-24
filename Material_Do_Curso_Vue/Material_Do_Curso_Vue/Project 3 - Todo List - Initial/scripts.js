@@ -2,7 +2,11 @@ var todo_list = [{ tarefaName: "teste", check: false }];
 let tarefa = "";
 
 function PushList() {
-  this.todo_list.push({ tarefaName: tarefa, check: false });
+  if (tarefa.length > 0) {
+    return this.todo_list.push({ tarefaName: tarefa, check: false });
+  }
+
+  alert("o texto da tarefa é obrigatorio");
 }
 
 const TodoMangerList = {
