@@ -1,6 +1,6 @@
 <template>
   <div id="container">
-    <h1>Pergunta para responder</h1>
+    <h1 v-html="question" />
 
     <label>true</label>
     <input type="radio" name="options" value="true" />
@@ -14,9 +14,28 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import axios from "axios";
 
 export default defineComponent({
   name: "App",
+
+  data() {
+    return {
+      question: undefined,
+      incorrect_answers: undefined,
+      correct_answer: undefined,
+    };
+  },
+
+  created() {
+    axios
+      .get("https://opentdb.com/api.php?amount=5&type=boolean")
+      .then((response) => {
+        this.question = response.data.results[0].question;
+        this.incorrect_answers = response.data.results[0].incorrect_answers;
+        this.correct_answer = response.data.results[0].correct_answer;
+      });
+  },
 });
 </script>
 
